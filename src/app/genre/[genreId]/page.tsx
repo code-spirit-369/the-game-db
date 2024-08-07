@@ -1,10 +1,18 @@
 import { Loader2Icon } from "lucide-react";
 
-import { fetchGames } from "@/actions";
+import { fetchGamesByGenre } from "@/actions";
 import GameList from "@/components/game-list";
 
-export default async function Home() {
-  const data = await fetchGames();
+type Props = {
+  params: {
+    genreId: string;
+  };
+};
+
+export default async function GenrePage({ params }: Props) {
+  const genreId = params.genreId;
+
+  const data = await fetchGamesByGenre(genreId);
 
   if (!data.results) {
     return (
